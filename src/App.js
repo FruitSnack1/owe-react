@@ -1,23 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Login from './components/Login';
+import Register from './components/Register';
+import Home from './components/Home';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"></link>
+      <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet"></link>
+      <link href="css/sb-admin-2.min.css" rel="stylesheet"></link>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/app">
+            <Home />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/register">
+            <Register />
+          </Route>
+          <Route path="/">
+            <NotFound />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

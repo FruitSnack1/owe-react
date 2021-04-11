@@ -1,10 +1,33 @@
 import axios from "axios"
+import { useEffect, useState } from "react"
 
 const Profile = () => {
 
-    const fetchUser = async () => {
-        const res = await axios.get('http://localhost:3001/users')
+    const [firstname, setFirstname] = useState('')
+    const [lastname, setLastname] = useState('')
+    const [username, setUsername] = useState('')
 
+    useEffect(() => {
+        fetchUser()
+    }, [])
+
+    const fetchUser = async () => {
+        const res = await axios.get('/users', {
+            headers: { "Authorization": localStorage.getItem('accesstoken') }
+        })
+        setFirstname(res.data.firstname)
+        setLastname(res.data.lastname)
+        setUsername(res.data.username)
+    }
+
+    const editUser = async () => {
+        const res = await axios.put('/users', {
+            firstname,
+            lastname,
+            username
+        }, {
+            headers: { "Authorization": localStorage.getItem('accesstoken') }
+        })
     }
 
     return (
@@ -16,20 +39,20 @@ const Profile = () => {
                 <form>
                     <div className='form-group'>
                         <label className='form-label'>Jméno</label>
-                        <input type='text' className='form-control'></input>
+                        <input onChange={(e) => { setFirstname(e.target.value) }} type='text' className='form-control' value={firstname}></input>
                     </div>
                     <div className='form-group'>
                         <label className='form-label'>Příjmení</label>
-                        <input type='text' className='form-control' ></input>
+                        <input onChange={(e) => { setLastname(e.target.value) }} type='text' className='form-control' value={lastname}></input>
                     </div>
                     <div className='form-group'>
                         <label className='form-label'>Uživatelské jméno</label>
-                        <input type='text' className='form-control' ></input>
+                        <input onChange={(e) => { setUsername(e.target.value) }} type='text' className='form-control' value={username}></input>
                     </div>
                     <button onClick={(e) => {
                         e.preventDefault()
-
-                    }} type="submit" className="btn btn-primary float-end">Vytvořit inzerát</button>
+                        editUser()
+                    }} type="submit" className="btn btn-primary float-end">Upravit profil</button>
                 </form>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import { Route, Switch, useRouteMatch } from "react-router"
 import { Link } from "react-router-dom";
 import FormListing from "./FormListing"
+import ListingDetail from "./ListingDetail";
 import Listings from "./Listings";
 import NotFound from "./NotFound";
 import Profile from "./Profile";
@@ -30,6 +31,7 @@ const Home = () => {
                             <span>Inzeráty</span>
                         </Link>
                     </li>
+                    <hr className='sidebar-divider d-none d-md-block'></hr>
                     <li className="nav-item ">
                         <Link className="nav-link" to='/app/profile'>
                             <i className="fas fa-fw fa-user"></i>
@@ -37,11 +39,16 @@ const Home = () => {
                         </Link>
                     </li>
                     <li className="nav-item ">
-                        <Link className="nav-link" to='/app/create'>
+                        <Link className="nav-link" to='/app/mylistings'>
                             <i className="fas fa-fw fa-list"></i>
                             <span>Moje Inzeráty</span>
                         </Link>
                     </li>
+                    <div style={{ padding: '1rem' }}>
+                        <Link className="btn btn-success btn-sm btn-block" to='/app/create'>
+                            <span>Vytvořit inzerát</span>
+                        </Link>
+                    </div>
 
 
 
@@ -130,16 +137,21 @@ const Home = () => {
                         </nav>
 
                         <div className="container-fluid">
-                            <Link to={`${url}/create`}>create</Link>
                             <Switch>
                                 <Route exact path={`${url}`}>
-                                    <Listings></Listings>
+                                    <Listings owned={false}></Listings>
                                 </Route>
-                                <Route exact path={`${url}/create`}>
-                                    <FormListing></FormListing>
+                                <Route exact path={`${url}/mylistings`}>
+                                    <Listings owned={true}></Listings>
                                 </Route>
                                 <Route exact path={`${url}/profile`}>
                                     <Profile></Profile>
+                                </Route>
+                                <Route path={`${url}/create`}>
+                                    <FormListing></FormListing>
+                                </Route>
+                                <Route path={`${url}/:listingId`}>
+                                    <ListingDetail></ListingDetail>
                                 </Route>
 
                             </Switch>

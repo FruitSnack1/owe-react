@@ -9,12 +9,6 @@ const Register = () => {
     const [password, setPassword] = useState('')
 
     const register = async () => {
-        console.log({
-            firstname,
-            lastname,
-            username,
-            password
-        })
         const user = {
             firstname,
             lastname,

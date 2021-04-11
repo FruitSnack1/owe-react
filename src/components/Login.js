@@ -9,10 +9,10 @@ const Login = () => {
     let history = useHistory()
 
     const login = async () => {
-        console.log(username, password)
-        const res = await axios.post('http://localhost:3001/users/login', { username, password })
+        const res = await axios.post('/users/login', { username, password })
         const { accesstoken } = res.data
         window.localStorage.setItem('accesstoken', accesstoken)
+        axios.defaults.headers.common['Authorization'] = accesstoken;
         history.push('/')
     }
 

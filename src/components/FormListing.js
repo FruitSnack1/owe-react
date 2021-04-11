@@ -5,11 +5,15 @@ const FormListing = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState(0)
+    const [file, setFile] = useState()
 
     const createListing = async () => {
-        console.log('creating listing')
-        const res = await axios.post('http://localhost:3001/listings', { name, description, price })
-        console.log(res.data)
+        const data = new FormData()
+        data.append('img', file)
+        data.append('listing', JSON.stringify({ name, description, price }))
+        const res = await axios.post('http://localhost:3001/listings', data, {
+            headers: { "Authorization": localStorage.getItem('accesstoken') }
+        })
     }
 
     return (
@@ -18,7 +22,7 @@ const FormListing = () => {
                 <h6 className='m-0 font-weight-bold text-primary'>Nový inzerát</h6>
             </div>
             <div className='card-body'>
-                <form>
+                <form >
                     <div className='form-group'>
                         <label className='form-label'>Název</label>
                         <input onChange={(e) => setName(e.target.value)} type='text' className='form-control'></input>
@@ -30,6 +34,10 @@ const FormListing = () => {
                     <div className='form-group'>
                         <label className='form-label'>Cena</label>
                         <input onChange={(e) => setPrice(e.target.value)} type='number' className='form-control' ></input>
+                    </div>
+                    <div className='form-group'>
+                        <label className='form-label'>Obrázek</label>
+                        <input onChange={(e) => setFile(e.target.files[0])} type='file' className='form-control-file' name='img'></input>
                     </div>
                     <button onClick={(e) => {
                         e.preventDefault()

@@ -1,25 +1,32 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import Listing from "./Listing"
 
-const Listings = () => {
+const Listings = ({ owned }) => {
 
-    const [listings, setListings] = useState([{ name: 'cc' }])
+    const [listings, setListings] = useState([])
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [owned])
 
     const fetchData = async () => {
-        const res = await axios.get('http://localhost:3001/listings')
-        const list = res.data
+        let res
+        if (owned)
+            res = await axios.get('/listings/owned', {
+                headers: { "Authorization": localStorage.getItem('accesstoken') }
+            })
+        else
+            res = await axios.get('/listings', {
+                headers: { "Authorization": localStorage.getItem('accesstoken') }
+            })
         setListings(res.data)
-        console.log(listings)
     }
 
     return (
         <>
-            <h3>Listings</h3>
+            <h3>{owned ? 'Moje inzeraty' : 'Nejnovější inzeráty'}</h3>
             <div className='row'>
                 {listings.map((l, i) => {
                     return <Listing key={l._id} listing={l}></Listing>

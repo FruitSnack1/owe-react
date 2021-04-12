@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Listing from "./Listing"
+import auth from '../auth/auth'
 
 const Listings = ({ owned }) => {
 
@@ -12,26 +13,30 @@ const Listings = ({ owned }) => {
     }, [owned])
 
     const fetchData = async () => {
-        let res
-        if (owned)
-            res = await axios.get('/listings/owned', {
-                headers: { "Authorization": localStorage.getItem('accesstoken') }
-            })
-        else
-            res = await axios.get('/listings', {
-                headers: { "Authorization": localStorage.getItem('accesstoken') }
-            })
+        const res = await axios.get('/listings', {
+            headers: { "Authorization": localStorage.getItem('accesstoken') }
+        })
         setListings(res.data)
     }
 
     return (
         <>
             <h3>{owned ? 'Moje inzeraty' : 'Nejnovější inzeráty'}</h3>
-            <div className='row'>
-                {listings.map((l, i) => {
-                    return <Listing key={l._id} listing={l}></Listing>
-                })}
-            </div>
+            {
+                owned ?
+                    <div className='row'>
+                        {listings.map((l, i) => {
+                            if (l.user == auth.getUserId())
+                                return <Listing key={l._id} listing={l}></Listing>
+                        })}
+                    </div>
+                    :
+                    <div className='row'>
+                        {listings.map((l, i) => {
+                            return <Listing key={l._id} listing={l}></Listing>
+                        })}
+                    </div>
+            }
         </>
     )
 }

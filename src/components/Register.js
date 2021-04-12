@@ -1,22 +1,24 @@
 import axios from "axios"
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 
 const Register = () => {
-    const [firstname, setFirstname] = useState('')
-    const [lastname, setLastname] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState('')
+
+    let history = useHistory()
 
     const register = async () => {
         const user = {
-            firstname,
-            lastname,
             username,
-            password
+            password,
+            email,
+            phone
         }
-        axios.post('http://localhost:3001/users/register', user)
-        // const users = await axios.get('http://localhost:3001/users')
+        await axios.post('http://localhost:3001/users/register', user)
+        history.push('/login')
     }
 
     return (
@@ -33,16 +35,16 @@ const Register = () => {
                                     </div>
                                     <form className="user">
                                         <div className="form-group">
-                                            <input onChange={(e) => setFirstname(e.target.value)} type="text" className="form-control form-control-user"
-                                                placeholder="Jméno" />
-                                        </div>
-                                        <div className="form-group">
-                                            <input onChange={(e) => setLastname(e.target.value)} type="text" className="form-control form-control-user"
-                                                placeholder="Příjmení" />
-                                        </div>
-                                        <div className="form-group">
                                             <input onChange={(e) => setUsername(e.target.value)} type="text" className="form-control form-control-user"
                                                 placeholder="Uživatelské jméno" />
+                                        </div>
+                                        <div className="form-group">
+                                            <input onChange={(e) => setEmail(e.target.value)} type="text" className="form-control form-control-user"
+                                                placeholder="E-mail" />
+                                        </div>
+                                        <div className="form-group">
+                                            <input onChange={(e) => setPhone(e.target.value)} type="number" className="form-control form-control-user"
+                                                placeholder="Telefoní číslo" />
                                         </div>
                                         <div className="form-group">
                                             <input onChange={(e) => setPassword(e.target.value)} type="password" className="form-control form-control-user"

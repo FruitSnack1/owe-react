@@ -1,9 +1,10 @@
-import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import Login from './components/Login';
-import Register from './components/Register';
-import Home from './components/Home';
-import NotFound from './components/NotFound';
+import './App.css'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Login from './components/Login'
+import Register from './components/Register'
+import Home from './components/Home'
+import NotFound from './components/NotFound'
+import Root from './components/Root'
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
       <link href="css/sb-admin-2.min.css" rel="stylesheet"></link>
       <BrowserRouter>
         <Switch>
+          <Route exact path="/">
+            <Root />
+          </Route>
           <Route path="/app">
             <Home />
           </Route>
@@ -24,7 +28,7 @@ function App() {
           <Route exact path="/register">
             <Register />
           </Route>
-          <Route path="/">
+          <Route path="*">
             <NotFound />
           </Route>
         </Switch>

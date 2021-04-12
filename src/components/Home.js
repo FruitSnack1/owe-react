@@ -5,6 +5,7 @@ import ListingDetail from "./ListingDetail";
 import Listings from "./Listings";
 import NotFound from "./NotFound";
 import Profile from "./Profile";
+import auth from '../auth/auth'
 
 const Home = () => {
     let { url } = useRouteMatch();
@@ -33,20 +34,20 @@ const Home = () => {
                     </li>
                     <hr className='sidebar-divider d-none d-md-block'></hr>
                     <li className="nav-item ">
-                        <Link className="nav-link" to='/app/profile'>
-                            <i className="fas fa-fw fa-user"></i>
-                            <span>Profil</span>
-                        </Link>
-                    </li>
-                    <li className="nav-item ">
                         <Link className="nav-link" to='/app/mylistings'>
                             <i className="fas fa-fw fa-list"></i>
                             <span>Moje Inzeráty</span>
                         </Link>
                     </li>
+                    <li className="nav-item ">
+                        <Link className="nav-link" to='/app/profile'>
+                            <i className="fas fa-fw fa-user"></i>
+                            <span>Profil</span>
+                        </Link>
+                    </li>
                     <div style={{ padding: '1rem' }}>
                         <Link className="btn btn-success btn-sm btn-block" to='/app/create'>
-                            <span>Vytvořit inzerát</span>
+                            <span>Vytvořit nový inzerát</span>
                         </Link>
                     </div>
 
@@ -104,12 +105,11 @@ const Home = () => {
                                 <div className="topbar-divider d-none d-sm-block"></div>
 
                                 <li className="nav-item dropdown no-arrow">
-                                    <a href="/#" className="nav-link dropdown-toggle" id="userDropdown" role="button"
+                                    <span href="/#" className="nav-link dropdown-toggle" id="userDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                        <img className="img-profile rounded-circle"
-                                            src="img/undraw_profile.svg" alt='' />
-                                    </a>
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{auth.getUsername()}</span>
+                                        <i onClick={() => auth.logout()} className='fas fa-sign-out-alt'></i>
+                                    </span>
                                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                         aria-labelledby="userDropdown">
                                         <a href="/#" className="dropdown-item" >
@@ -150,10 +150,12 @@ const Home = () => {
                                 <Route path={`${url}/create`}>
                                     <FormListing></FormListing>
                                 </Route>
+                                <Route path={`${url}/edit/:listingId`}>
+                                    <FormListing></FormListing>
+                                </Route>
                                 <Route path={`${url}/:listingId`}>
                                     <ListingDetail></ListingDetail>
                                 </Route>
-
                             </Switch>
                         </div>
 
@@ -162,7 +164,7 @@ const Home = () => {
                     <footer className="sticky-footer bg-white">
                         <div className="container my-auto">
                             <div className="copyright text-center my-auto">
-                                <span>Copyright &copy; Your Website 2020</span>
+                                <span>Studentský projekt </span>
                             </div>
                         </div>
                     </footer>

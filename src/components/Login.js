@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import auth from '../auth/auth'
 
 const Login = () => {
     const [username, setUsername] = useState('')
@@ -9,11 +10,8 @@ const Login = () => {
     let history = useHistory()
 
     const login = async () => {
-        const res = await axios.post('/users/login', { username, password })
-        const { accesstoken } = res.data
-        window.localStorage.setItem('accesstoken', accesstoken)
-        axios.defaults.headers.common['Authorization'] = accesstoken;
-        history.push('/')
+        await auth.login({ username, password })
+        history.push('/app')
     }
 
     return (

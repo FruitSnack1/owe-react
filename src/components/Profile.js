@@ -1,10 +1,9 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import auth from '../auth/auth'
 
 const Profile = () => {
 
-    const [firstname, setFirstname] = useState('')
-    const [lastname, setLastname] = useState('')
     const [username, setUsername] = useState('')
 
     useEffect(() => {
@@ -15,15 +14,11 @@ const Profile = () => {
         const res = await axios.get('/users', {
             headers: { "Authorization": localStorage.getItem('accesstoken') }
         })
-        setFirstname(res.data.firstname)
-        setLastname(res.data.lastname)
         setUsername(res.data.username)
     }
 
     const editUser = async () => {
-        const res = await axios.put('/users', {
-            firstname,
-            lastname,
+        await axios.put('/users', {
             username
         }, {
             headers: { "Authorization": localStorage.getItem('accesstoken') }
@@ -37,14 +32,6 @@ const Profile = () => {
             </div>
             <div className='card-body'>
                 <form>
-                    <div className='form-group'>
-                        <label className='form-label'>Jméno</label>
-                        <input onChange={(e) => { setFirstname(e.target.value) }} type='text' className='form-control' value={firstname}></input>
-                    </div>
-                    <div className='form-group'>
-                        <label className='form-label'>Příjmení</label>
-                        <input onChange={(e) => { setLastname(e.target.value) }} type='text' className='form-control' value={lastname}></input>
-                    </div>
                     <div className='form-group'>
                         <label className='form-label'>Uživatelské jméno</label>
                         <input onChange={(e) => { setUsername(e.target.value) }} type='text' className='form-control' value={username}></input>

@@ -31,7 +31,7 @@ const Root = () => {
                             <ul className="navbar-nav ml-auto">
 
                                 <li className="nav-item dropdown no-arrow d-sm-none">
-                                    <a className="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                    <a className="nav-link dropdown-toggle" href="/#" id="searchDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i className="fas fa-search fa-fw"></i>
                                     </a>
@@ -53,10 +53,10 @@ const Root = () => {
                                 </li>
 
                                 <li className="nav-item dropdown no-arrow">
-                                    <Link to='/login' className='btn btn-primary mr-2'>Přihlásit se</Link>
+                                    <Link to='/login' className='btn btn-primary mr-2'>Přihlášení</Link>
                                 </li>
                                 <li className="nav-item dropdown no-arrow">
-                                    <Link to='/register' className='btn btn-light'>Registrovat se</Link>
+                                    <Link to='/register' className='btn btn-light'>Registrace</Link>
                                 </li>
 
                             </ul>
@@ -74,7 +74,7 @@ const Root = () => {
                     <footer className="sticky-footer bg-white">
                         <div className="container my-auto">
                             <div className="copyright text-center my-auto">
-                                <span>Studentský projekt</span>
+                                <span>Studentský zápočtový projekt | Tomáš Rýzner</span>
                             </div>
                         </div>
                     </footer>

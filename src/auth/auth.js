@@ -1,29 +1,14 @@
 import axios from "axios"
 
 class Auth {
-    constructor() {
-        this.authenticated = false
-        this.userId = 'false'
-        this.username = ''
-    }
-
-    async login(data, cb) {
-
+    async login(data) {
         const { username, password } = data
-        this.authenticated = true
         const res = await axios.post('/users/login', { username, password })
-        console.log(res.data)
-        const { accesstoken } = res.data
+        const { accesstoken, id } = res.data
         window.localStorage.setItem('accesstoken', accesstoken)
-        this.username = res.data.username
-        this.userId = res.data.id
+        window.localStorage.setItem('id', id)
+        window.localStorage.setItem('username', res.data.username)
         return
-    }
-
-    logout(cb) {
-        localStorage.clear()
-        this.authenticated = false
-        window.location.href = '/login'
     }
 
     isAuthenticated() {
@@ -31,11 +16,11 @@ class Auth {
     }
 
     getUserId() {
-        return this.userId
+        return localStorage.getItem('id')
     }
 
     getUsername() {
-        return this.fullname
+        return localStorage.getItem('username')
     }
 }
 

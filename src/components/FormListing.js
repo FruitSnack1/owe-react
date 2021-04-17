@@ -22,10 +22,14 @@ const FormListing = () => {
     }
 
     useEffect(() => {
+        setName('')
+        setDescription('')
+        setPrice(0)
+        setimgPreview('/no-image.png')
         if (!listingId)
             return
         fetchListing()
-    }, [listingId, history])
+    }, [listingId, history,])
 
 
     const createListing = async () => {
@@ -79,7 +83,7 @@ const FormListing = () => {
             <div className='card-body'>
                 <div className='row'>
                     <div className='col-4 d-flex align-items-center justify-content-center'>
-                        <img className='img-fluid' src={imgPreview} />
+                        <img className='img-fluid' src={imgPreview} alt='listing-img' />
                     </div>
                     <div className='col-8'>
                         <form >

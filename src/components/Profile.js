@@ -1,10 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import auth from '../auth/auth'
 
 const Profile = () => {
 
     const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState('')
 
     useEffect(() => {
         fetchUser()
@@ -15,11 +16,15 @@ const Profile = () => {
             headers: { "Authorization": localStorage.getItem('accesstoken') }
         })
         setUsername(res.data.username)
+        setEmail(res.data.email)
+        setPhone(res.data.phone)
     }
 
     const editUser = async () => {
         await axios.put('/users', {
-            username
+            username,
+            email,
+            phone
         }, {
             headers: { "Authorization": localStorage.getItem('accesstoken') }
         })
@@ -34,7 +39,15 @@ const Profile = () => {
                 <form>
                     <div className='form-group'>
                         <label className='form-label'>Uživatelské jméno</label>
-                        <input onChange={(e) => { setUsername(e.target.value) }} type='text' className='form-control' value={username}></input>
+                        <input onChange={(e) => setUsername(e.target.value)} type='text' className='form-control' value={username}></input>
+                    </div>
+                    <div className='form-group'>
+                        <label className='form-label'>Email</label>
+                        <input onChange={(e) => setEmail(e.target.value)} type='text' className='form-control' value={email}></input>
+                    </div>
+                    <div className='form-group'>
+                        <label className='form-label'>Telefon</label>
+                        <input onChange={(e) => setPhone(e.target.value)} type='text' className='form-control' value={phone}></input>
                     </div>
                     <button onClick={(e) => {
                         e.preventDefault()

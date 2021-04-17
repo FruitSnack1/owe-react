@@ -1,14 +1,20 @@
-import { Route, Switch, useRouteMatch } from "react-router"
+import { Route, Switch, useHistory, useRouteMatch } from "react-router"
 import { Link } from "react-router-dom";
 import FormListing from "./FormListing"
 import ListingDetail from "./ListingDetail";
 import Listings from "./Listings";
-import NotFound from "./NotFound";
 import Profile from "./Profile";
 import auth from '../auth/auth'
 
 const Home = () => {
     let { url } = useRouteMatch();
+    const history = useHistory()
+
+    const logOut = () => {
+        localStorage.clear()
+        history.push('/')
+    }
+
     return (
         <div>
 
@@ -108,7 +114,7 @@ const Home = () => {
                                     <span href="/#" className="nav-link dropdown-toggle" id="userDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span className="mr-2 d-none d-lg-inline text-gray-600 small">{auth.getUsername()}</span>
-                                        <i onClick={() => auth.logout()} className='fas fa-sign-out-alt'></i>
+                                        <i onClick={() => logOut()} className='fas fa-sign-out-alt'></i>
                                     </span>
                                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                         aria-labelledby="userDropdown">
@@ -164,7 +170,7 @@ const Home = () => {
                     <footer className="sticky-footer bg-white">
                         <div className="container my-auto">
                             <div className="copyright text-center my-auto">
-                                <span>Studentský projekt </span>
+                                <span>Studentský zápočtový projekt | Tomáš Rýzner</span>
                             </div>
                         </div>
                     </footer>
@@ -177,26 +183,9 @@ const Home = () => {
                 <i className="fas fa-angle-up"></i>
             </a>
 
-            <div className="modal fade" id="logoutModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button className="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div className="modal-footer">
-                            <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a href="/#" className="btn btn-primary" >Logout</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <script src="vendor/jquery/jquery.min.js"></script>
+
+            {/* <script src="vendor/jquery/jquery.min.js"></script>
             <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
             <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -206,7 +195,7 @@ const Home = () => {
             <script src="vendor/chart.js/Chart.min.js"></script>
 
             <script src="js/demo/chart-area-demo.js"></script>
-            <script src="js/demo/chart-pie-demo.js"></script>
+            <script src="js/demo/chart-pie-demo.js"></script> */}
 
 
         </div >

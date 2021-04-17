@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import Listing from "./Listing"
 import auth from '../auth/auth'
 
@@ -26,8 +25,9 @@ const Listings = ({ owned }) => {
                 owned ?
                     <div className='row'>
                         {listings.map((l, i) => {
-                            if (l.user == auth.getUserId())
+                            if (l.user === auth.getUserId())
                                 return <Listing key={l._id} listing={l}></Listing>
+                            return ''
                         })}
                     </div>
                     :

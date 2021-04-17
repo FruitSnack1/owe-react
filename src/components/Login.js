@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import auth from '../auth/auth'
@@ -18,9 +17,7 @@ const Login = () => {
         <div>
             <div className="container">
                 <div className="row justify-content-center">
-
                     <div className="col-xl-10 col-lg-12 col-md-9">
-
                         <div className="card o-hidden border-0 shadow-lg my-5">
                             <div className="card-body p-0">
                                 <div className="row">
@@ -52,7 +49,6 @@ const Login = () => {
                                                 </button>
                                             </form>
                                             <hr />
-
                                             <div className="text-center">
                                                 <Link className="small" to="/register">Registrovat se</Link>
                                             </div>
@@ -61,21 +57,9 @@ const Login = () => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
-            {/* <script src="vendor/jquery/jquery.min.js"></script>
-            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-            <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-            <script src="js/sb-admin-2.min.js"></script> */}
-
-
         </div>
     )
 }

@@ -9,7 +9,7 @@ const Listing = ({ listing }) => {
                     {/* <div className='card-header py-3'>
                     <h6 className='m-0 font-weight-bold text-primary'>{listing.name}</h6>
                 </div> */}
-                    <img src={`http://localhost:5000/${listing.img}`} className="card-img-top" alt="..." style={{ height: '18rem', objectFit: 'cover' }}></img>
+                    <img src={`https://owe-inzeraty-api.herokuapp.com//${listing.img}`} className="card-img-top" alt="..." style={{ height: '18rem', objectFit: 'cover' }}></img>
                     <div className='card-body'>
                         <h5 className=' m-0 font-weight-bold text-primary'>{listing.name}</h5>
                         <span>{format(new Date(listing?.created), 'dd/MM')}</span>

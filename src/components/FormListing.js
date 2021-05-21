@@ -18,7 +18,7 @@ const FormListing = () => {
         setName(res.data.name)
         setDescription(res.data.description)
         setPrice(res.data.price)
-        setimgPreview(`http://localhost:3001/${res.data.img}`)
+        setimgPreview(`https://owe-inzeraty-api.herokuapp.com//${res.data.img}`)
     }
 
     useEffect(() => {

@@ -40,7 +40,7 @@ const ListingDetail = () => {
     return (
         <>
             <div className='row'>
-                <div className='col-lg-9 col-sm-12 mb-3 mb-sm-5 '>
+                <div className='col-lg-9 col-sm-12 mb-3 mb-sm-5 m-lg-0 '>
                     <div className='card shadow '>
                         <div className='card-body'>
                             <div className='row '>

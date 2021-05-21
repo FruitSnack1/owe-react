@@ -27,7 +27,7 @@ const Home = () => {
                         <div className="sidebar-brand-icon rotate-n-15">
                             <i className="fas fa-laugh-wink"></i>
                         </div>
-                        <div className="sidebar-brand-text mx-3">Ineráty</div>
+                        <div className="sidebar-brand-text mx-3">Inzeráty</div>
                     </Link>
 
                     <hr className="sidebar-divider my-0" />

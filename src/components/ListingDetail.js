@@ -46,7 +46,7 @@ const ListingDetail = () => {
                             <div className='row '>
                                 <div className='col-lg-4 col-sm-12'>
                                     <div className='d-flex justify-content-center align-items-center'>
-                                        <img src={`http://localhost:3001/${listing.img}`} className="card-img-top" alt="..." style={{ height: '18rem', objectFit: 'cover' }}></img>
+                                        <img src={`http://localhost:5000/${listing.img}`} className="card-img-top" alt="..." style={{ height: '18rem', objectFit: 'cover' }}></img>
                                     </div>
                                 </div>
                                 <div className='col-lg-8 col-sm-12 d-flex flex-column mt-3'>

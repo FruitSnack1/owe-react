@@ -17,7 +17,7 @@ const Register = () => {
             email,
             phone
         }
-        await axios.post('http://localhost:3001/users/register', user)
+        await axios.post('/users/register', user)
         history.push('/login')
     }
 

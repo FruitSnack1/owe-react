@@ -8,6 +8,7 @@ const ListingDetail = () => {
 
     const [listing, setListing] = useState({})
     const [date, setDate] = useState('')
+    const [category, setCategory] = useState('')
     let { listingId } = useParams()
     let history = useHistory()
 
@@ -18,6 +19,11 @@ const ListingDetail = () => {
             headers: { "Authorization": localStorage.getItem('accesstoken') }
         })
         setListing(res.data)
+        const categories = await axios.get('/codes/categories')
+        console.log(listing)
+        console.log(categories.data)
+        console.log(categories.data[res.data.category - 1]?.name)
+        setCategory(categories.data[res.data.category - 1]?.name)
         setDate(format(new Date(res.data.created), 'dd/MM'))
     }
 
@@ -51,7 +57,7 @@ const ListingDetail = () => {
                                 </div>
                                 <div className='col-lg-8 col-sm-12 d-flex flex-column mt-3'>
                                     <div>
-                                        <h5 className='m-0 font-weight-bold text-primary d-inline'>{listing.name}</h5>
+                                        <h5 className='m-0 font-weight-bold text-primary d-inline'>{listing.name}<span className={'badge ml-2 ' + (listing.type == 2 ? 'badge-danger' : 'badge-primary')}>{listing.type == 1 ? 'Prodám' : 'Koupím'}</span></h5>
                                         {
                                             auth.getUserId() === listing?.user?._id ?
                                                 <>
@@ -67,13 +73,14 @@ const ListingDetail = () => {
                                         }
                                         <span className='float-right'>{date}</span>
                                         <hr></hr>
+                                        <span className='badge badge-secondary'>{category}</span>
                                         <p>{listing.description}</p>
                                     </div>
                                     <div className='mt-auto'>
                                         <div className='h5 mb-0 font-weight-bold text-gray-800 d-inline'>
                                             {listing.price} Kč
                                         </div>
-                                        <button className='btn btn-primary float-right'>Koupit</button>
+                                        <button className='btn btn-primary float-right'>Kontaktovat</button>
                                     </div>
                                 </div>
                             </div>

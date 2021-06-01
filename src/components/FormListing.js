@@ -8,6 +8,9 @@ const FormListing = () => {
     const [price, setPrice] = useState(0)
     const [file, setFile] = useState(0)
     const [imgPreview, setimgPreview] = useState('/no-image.png')
+    const [categories, setCategories] = useState([])
+    const [type, setType] = useState(1)
+    const [category, setCategory] = useState(1)
 
     let history = useHistory()
     let { listingId } = useParams()
@@ -18,7 +21,14 @@ const FormListing = () => {
         setName(res.data.name)
         setDescription(res.data.description)
         setPrice(res.data.price)
+        setType(res.data.type)
+        setCategory(res.data.category)
         setimgPreview(`https://owe-inzeraty-api.herokuapp.com//${res.data.img}`)
+    }
+
+    const fetchCategories = async () => {
+        const res = await axios.get('/codes/categories')
+        setCategories(res.data)
     }
 
     useEffect(() => {
@@ -26,6 +36,7 @@ const FormListing = () => {
         setDescription('')
         setPrice(0)
         setimgPreview('/no-image.png')
+        fetchCategories()
         if (!listingId)
             return
         fetchListing()
@@ -42,7 +53,9 @@ const FormListing = () => {
             name,
             description,
             price,
-            img: res.data.image
+            img: res.data.image,
+            type,
+            category
         }
         await axios.post('/listings', listing, {
             headers: { "Authorization": localStorage.getItem('accesstoken') }
@@ -87,9 +100,23 @@ const FormListing = () => {
                     </div>
                     <div className='col-8'>
                         <form >
+                            <div className="btn-group float-right" role="group" aria-label="Basic example">
+                                <button onClick={() => { setType(1) }} type="button" className={'btn ' + (type == 1 ? 'btn-primary' : 'btn-light')}>Prodám</button>
+                                <button onClick={() => { setType(2) }} type="button" className={'btn ' + (type == 2 ? 'btn-primary' : 'btn-light')}>Koupím</button>
+                            </div>
                             <div className='form-group'>
                                 <label className='form-label'>Název</label>
                                 <input onChange={(e) => setName(e.target.value)} value={name} type='text' className='form-control'></input>
+                            </div>
+                            <div className='form-group'>
+                                <label className='form-label'>Kategorie</label>
+                                <select value={category} onChange={(e) => { setCategory(e.target.value) }} className='form-control'>
+                                    {
+                                        categories.map(e => {
+                                            return <option value={e.id}>{e.name}</option>
+                                        })
+                                    }
+                                </select>
                             </div>
                             <div className='form-group'>
                                 <label className='form-label'>Popis</label>
@@ -108,12 +135,12 @@ const FormListing = () => {
                                     <button onClick={(e) => {
                                         e.preventDefault()
                                         editListing()
-                                    }} type="submit" className="btn btn-primary float-right">Upravit inzerát</button>
+                                    }} type="submit" className="btn btn-success float-right">Upravit inzerát</button>
                                     :
                                     <button onClick={(e) => {
                                         e.preventDefault()
                                         createListing()
-                                    }} type="submit" className="btn btn-primary float-right">Vytvořit inzerát</button>
+                                    }} type="submit" className="btn btn-success float-right">Vytvořit inzerát</button>
                             }
                         </form>
                     </div>

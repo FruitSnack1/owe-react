@@ -4,6 +4,7 @@ import App from './App'
 import axios from 'axios'
 
 axios.defaults.baseURL = 'https://owe-inzeraty-api.herokuapp.com/'
+// axios.defaults.baseURL = 'http://localhost:5000'
 
 ReactDOM.render(
   <React.StrictMode>
